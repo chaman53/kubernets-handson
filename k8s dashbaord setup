@@ -1,0 +1,3 @@
+kubectl create -f
+https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/k
+ubernetes-dashboard.yaml
