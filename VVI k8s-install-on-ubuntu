@@ -1,3 +1,29 @@
+Install Docker Engine on Ubuntu
+sudo apt-get remove docker docker-engine docker.io containerd runc
+Set up the repository
+Update the apt package index and install packages to allow apt to use a repository over HTTPS:
+
+ sudo apt-get update
+ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+Add Docker’s official GPG key:
+
+ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+ sudo apt-get update
+ 
+ a. List the versions available in your repo:
+ apt-cache madison docker-ce
+ sudo apt-get install docker-ce=<VERSION_STRING> docker-ce-cli=<VERSION_STRING> containerd.io
+ sudo apt-get install docker-ce=18.06.3~ce~3-0~ubuntu docker-ce-cli=5:18.09.9~3-0~ubuntu-xenial containerd.io
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
 Before you begin
 A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
 2 GB or more of RAM per machine (any less will leave little room for your apps).
