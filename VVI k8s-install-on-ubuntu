@@ -1,0 +1,52 @@
+Before you begin
+A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
+2 GB or more of RAM per machine (any less will leave little room for your apps).
+2 CPUs or more.
+Full network connectivity between all machines in the cluster (public or private network is fine).
+Unique hostname, MAC address, and product_uuid for every node. See here for more details.
+Certain ports are open on your machines. See here for more details.
+Swap disabled. You MUST disable swap in order for the kubelet to work properly.
+
+Update the apt package index and install packages needed to use the Kubernetes apt repository:
+
+sudo apt-get update
+sudo apt-get install -y apt-transport-https ca-certificates curl
+Download the Google Cloud public signing key:
+
+sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+Add the Kubernetes apt repository:
+
+echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+Update apt package index, install kubelet, kubeadm and kubectl, and pin their version:
+
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+
+go to this site:-
+https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
+
+kubeadm init --ignore-preflight-errors=NumCPU
+
+
+
+master
+:-
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+on Node:-
+
+kubeadm join 172.31.53.119:6443 --token xnw2dw.n3w7kyc8yad1wrpv \
+    --discovery-token-ca-cert-hash sha256:9e7c24af3f202f22f7d45c489dbe787c9eb864797033d71cf81d9f10d7cc4eb1
+
+
+
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
