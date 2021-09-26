@@ -48,7 +48,7 @@ Update apt package index, install kubelet, kubeadm and kubectl, and pin their ve
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
-
+E#sudo apt-get remove -y kubelet kubeadm kubectl --allow-change-held-packages
 go to this site:-
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 
