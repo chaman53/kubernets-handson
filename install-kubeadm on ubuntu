@@ -1,4 +1,4 @@
-Go
+Go kubenets.io and select version 1.18
 1)
 Run below command on all master and node
 a)
@@ -11,7 +11,7 @@ net.bridge.bridge-nf-call-iptables = 1
 EOF
 sudo sysctl --system
 
-2)#### Install docker on all node
+2)#### Install docker on all node#################
 ubuntu16.04
 # (Install Docker CE)
 ## Set up the repository:
@@ -50,18 +50,21 @@ If you want the docker service to start on boot, run the following command:
 sudo systemctl enable docker
 
 
-3)Installing kubeadm, kubelet and kubectl 
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
+3)##################Installing kubeadm, kubelet and kubectl ###########################################################
+a)sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+
+b)curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+c)cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
+d)
 sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 Note:- No need to configure cgroup drive as we are using docker container
-kubeadm init --pod-network-cidr --apiserver-advertise-address=<ip-address> --ignore-preflight-errors=All
+e) kubeadm init --pod-network-cidr --apiserver-advertise-address=<ip-address> --ignore-preflight-errors=All
 
 
 To start using your cluster, you need to run the following as a regular user:
@@ -81,4 +84,5 @@ as root:
   eg:
   kubeadm join 172.31.37.196:6443 --token pi5vwb.09nz2s2h26omh3ea \
         --discovery-token-ca-cert-hash sha256:31352b949ff3a1f38b767ecd0d41acf16c0aa9119821cb06e21b31acc991a107
+using weave network
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
