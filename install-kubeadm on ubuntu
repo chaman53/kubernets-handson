@@ -61,7 +61,7 @@ sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
 Note:- No need to configure cgroup drive as we are using docker container
-kubeadm init --pod-network-cidr apiserver-advertise-address=<ip-address>
+kubeadm init --pod-network-cidr --apiserver-advertise-address=<ip-address> --ignore-preflight-errors=All
 
 
 To start using your cluster, you need to run the following as a regular user:
@@ -78,4 +78,5 @@ You can now join any number of machines by running the following on each node
 as root:
 
   kubeadm join <control-plane-host>:<control-plane-port> --token <token> --discovery-token-ca-cert-hash sha256:<hash>
-
+  
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
