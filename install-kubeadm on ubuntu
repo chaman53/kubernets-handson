@@ -1,3 +1,4 @@
+Create three EC2 ubuntu instances 
 Go kubenets.io and select version 1.18
 1)
 Run below command on all master and node
