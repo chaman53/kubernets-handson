@@ -1,0 +1,16 @@
+Q:-The dev-user is trying to get details about the dark-blue-app pod in the blue namespace. Investigate and fix the issue.
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: developer
+  namespace: blue
+rules:
+- apiGroups: [""]
+  resourceNames: ["blue-app","dark-blue-app"]
+  -  resources: ["pods"]
+  verbs:
+  - get
+  - watch
+  - create
+  - delete
