@@ -1,0 +1,23 @@
+cat > clustermichelle-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-adminmichelle
+rules:
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["list"]
+
+cat > michelle-user-binding.yaml 
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: michelle-user-binding
+subjects:
+- kind: User
+  name: michelle
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-adminmichelle
+  apiGroup: rbac.authorization.k8s.io
